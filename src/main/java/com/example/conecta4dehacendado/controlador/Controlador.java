@@ -314,12 +314,13 @@ public class Controlador {
     private void dobleJugador(int fila, int columna) {
         for (int i = 5; i >= 0; i--) {
             Circle pieza = fichas[i][columna];
+            String colorCorrectoP1 = parseColor(player1.getColor().toString());
+            String colorCorrectoP2 = parseColor(player2.getColor().toString());
 
-            // Verifica que es una ficha modificable, además de si el modo esta activado
+            // Verifica que es una ficha modificable, además de si el modo está activado
             if (esBlanca(pieza) && activeHvsh) {
-                if (checkWinner(fichas, player1.getColor()) || checkWinner(fichas, player2.getColor())) {
-                    if (checkWinner(fichas, player1.getColor())) winP1 = true;
-                    else winP1=false;
+                if (comprobarVictoria()) {
+
                     ventanaVictoria();
                 } else{
                     if (turnoP1) {
@@ -338,6 +339,7 @@ public class Controlador {
                         turnoP1 = true;
                     }
                 }
+                System.out.println(player1.getColor());
                 break; // Terminar la búsqueda una vez que se ha encontrado una ficha blanca
             }
         }
@@ -356,10 +358,7 @@ public class Controlador {
 
             // Verifica que es una ficha modificable
             if (esBlanca(pieza) && activeHvsia) {
-                if (checkWinner(fichas, player1.getColor()) || checkWinner(fichas, ia2.getColor())) {
-                    if (checkWinner(fichas, player1.getColor())) winP1 = true;
-                    else winP1=false;
-                    System.out.println(checkWinner(fichas, ia2.getColor()));
+                if (comprobarVictoria()) {
                     ventanaVictoria();
                 } else{
                     turno.setText("Turno: " + ia2.getUsername());
@@ -434,31 +433,31 @@ public class Controlador {
     }
 
     /**
-     * Verifica si cualquiera de las cuatro opciones de victoria es cierta, para finalizar la partida y dar con un ganador.
-     * @param fichas la posición de cada ficha
-     * @param color el color de cada ficha
-     * @return true si hay ganador, false si aún no.
+     * El siguiente método comprueba todas las posibilidades de victoria, y devuelve true o false dependiendo si hay o no ganador
+     * @return Devuelve un boolean dependiendo si existe un ganador
      */
-    public static boolean checkWinner(Circle[][] fichas, javafx.scene.paint.Paint color) {
-        return checkHorizontal(fichas, color) ||
-                checkVertical(fichas, color) ||
-                checkDiagonalRight(fichas, color) ||
-                checkDiagonalLeft(fichas, color);
+    private boolean comprobarVictoria() {
+        return comprobarFilas() || comprobarColumnas() || comprobarDiagonales();
     }
 
     /**
-     * Comprueba si hay 4 fichas del mismo color en horizontal.
-     * @param fichas la posición de cada ficha
-     * @param color el color de cada ficha
-     * @return true si hay ganador, false si no
+     * Comprueba las posibilidades horizontales
+     * @return devuelve true o false dependiendo si hay o no ganador
      */
-    public static boolean checkHorizontal(Circle[][] fichas, javafx.scene.paint.Paint color) {
-        for (int row = 0; row < 6; row++) {
-            for (int col = 0; col < 4; col++) {
-                if (fichas[row][col].getFill() == color &&
-                        fichas[row][col + 1].getFill() == color &&
-                        fichas[row][col + 2].getFill() == color &&
-                        fichas[row][col + 3].getFill() == color) {
+    private boolean comprobarFilas() {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7 - 3; j++) {
+                if (fichas[i][j].getFill().equals(player1.getColor()) &&
+                        fichas[i][j].getFill().equals(fichas[i][j + 1].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i][j + 2].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i][j + 3].getFill())) {
+                    winP1=true;
+                    return true;
+                }else if (fichas[i][j].getFill().equals(player2.getColor()) &&
+                        fichas[i][j].getFill().equals(fichas[i][j + 1].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i][j + 2].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i][j + 3].getFill())) {
+                    winP1=false;
                     return true;
                 }
             }
@@ -466,18 +465,23 @@ public class Controlador {
         return false;
     }
     /**
-     * Comprueba si hay 4 fichas del mismo color en vertical.
-     * @param fichas la posición de cada ficha
-     * @param color el color de cada ficha
-     * @return true si hay ganador, false si no
+     * Comprueba las posibilidades verticales
+     * @return devuelve true o false dependiendo si hay o no ganador
      */
-    public static boolean checkVertical(Circle[][] fichas, javafx.scene.paint.Paint color) {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 7; col++) {
-                if (fichas[row][col].getFill() == color &&
-                        fichas[row + 1][col].getFill() == color &&
-                        fichas[row + 2][col].getFill() == color &&
-                        fichas[row + 3][col].getFill() == color) {
+    private boolean comprobarColumnas() {
+        for (int i = 0; i < 6 - 3; i++) {
+            for (int j = 0; j < 7; j++) {
+                if (fichas[i][j].getFill().equals(player1.getColor()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 1][j].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 2][j].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 3][j].getFill())) {
+                    winP1=true;
+                    return true;
+                }else if (fichas[i][j].getFill().equals(player2.getColor()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 1][j].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 2][j].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 3][j].getFill())) {
+                    winP1=false;
                     return true;
                 }
             }
@@ -485,41 +489,48 @@ public class Controlador {
         return false;
     }
     /**
-     * Comprueba si hay 4 fichas del mismo color en diagonal hacia la derecha.
-     * @param fichas la posición de cada ficha
-     * @param color el color de cada ficha
-     * @return true si hay ganador, false si no
+     * Comprueba las posibilidades diagonales
+     * @return devuelve true o false dependiendo si hay o no ganador
      */
-    public static boolean checkDiagonalRight(Circle[][] fichas, javafx.scene.paint.Paint color) {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 4; col++) {
-                if (fichas[row][col].getFill() == color &&
-                        fichas[row + 1][col + 1].getFill() == color &&
-                        fichas[row + 2][col + 2].getFill() == color &&
-                        fichas[row + 3][col + 3].getFill() == color) {
+    private boolean comprobarDiagonales() {
+        // Comprobar diagonales descendentes
+        for (int i = 0; i < 6 - 3; i++) {
+            for (int j = 0; j < 7 - 3; j++) {
+                if (fichas[i][j].getFill().equals(player1.getColor()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 1][j + 1].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 2][j + 2].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 3][j + 3].getFill())) {
+                    winP1=true;
+                    return true;
+                }else if (fichas[i][j].getFill().equals(player2.getColor()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 1][j + 1].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 2][j + 2].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i + 3][j + 3].getFill())) {
+                    winP1=false;
                     return true;
                 }
             }
         }
-        return false;
-    }
-    /**
-     * Comprueba si hay 4 fichas del mismo color en diagonal hacia la derecha.
-     * @param fichas la posición de cada ficha
-     * @param color el color de cada ficha
-     * @return true si hay ganador, false si no
-     */
-    public static boolean checkDiagonalLeft(Circle[][] fichas, javafx.scene.paint.Paint color) {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 3; col < 7; col++) {
-                if (fichas[row][col].getFill() == color &&
-                        fichas[row + 1][col - 1].getFill() == color &&
-                        fichas[row + 2][col - 2].getFill() == color &&
-                        fichas[row + 3][col - 3].getFill() == color) {
+
+        // Comprobar diagonales ascendentes
+        for (int i = 3; i < 6; i++) {
+            for (int j = 0; j < 7 - 3; j++) {
+                if (fichas[i][j].getFill().equals(player1.getColor()) &&
+                        fichas[i][j].getFill().equals(fichas[i - 1][j + 1].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i - 2][j + 2].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i - 3][j + 3].getFill())) {
+                    winP1=true;
+                    return true;
+                }else if (fichas[i][j].getFill().equals(player2.getColor()) &&
+                        fichas[i][j].getFill().equals(fichas[i - 1][j + 1].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i - 2][j + 2].getFill()) &&
+                        fichas[i][j].getFill().equals(fichas[i - 3][j + 3].getFill())) {
+                    winP1=false;
                     return true;
                 }
             }
         }
+
         return false;
     }
 
@@ -566,7 +577,7 @@ public class Controlador {
                 });
             }
         }
-        }
+    }
     /**
      * Método al que se accede mediante los menus. En este caso es el método de jugador vs máquina.
      */
