@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -14,30 +15,41 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conecta4dehacendado.controlador.Controlador">
    <children>
       <MenuBar layoutY="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Start" />
+                  <MenuItem fx:id="start" mnemonicParsing="false" text="Start" />
                   <SeparatorMenuItem mnemonicParsing="false">
                      <content>
-                        <MenuButton mnemonicParsing="false" text="Seleccionar Modo">
+                        <MenuButton fx:id="selectMode" mnemonicParsing="false" onAction="#seleccionarModo" text="Seleccionar Modo">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Humano VS Humano" />
-                              <MenuItem mnemonicParsing="false" text="Humano VS IA" />
-                              <MenuItem mnemonicParsing="false" text="IA VS IA" />
+                              <MenuItem fx:id="hvsh" mnemonicParsing="false" onAction="#seleccionarModo" text="Humano VS Humano" />
+                              <MenuItem fx:id="hvsia" mnemonicParsing="false" onAction="#seleccionarModo" text="Humano VS IA" />
+                              <MenuItem fx:id="iavsia" mnemonicParsing="false" onAction="#seleccionarModo" text="IA VS IA" />
                            </items>
                         </MenuButton>
                      </content>
                   </SeparatorMenuItem>
-                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" text="Cambiar color ficha P1">
+                     <graphic>
+                        <ColorPicker fx:id="colorFicha1" onAction="#colorFichaP1" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" text="Cambiar color ficha P2">
+                     <graphic>
+                        <ColorPicker fx:id="colorFicha2" onAction="#colorFichaP2" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem fx:id="cambiarNombreP1" mnemonicParsing="false" onAction="#seleccionarNombreP1" text="Cambiar nombre jugador1" />
+                  <MenuItem fx:id="cambiarNombreP2" mnemonicParsing="false" onAction="#seleccionarNombreP2" text="Cambiar nombre jugador2" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
@@ -66,54 +78,65 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Circle id="ficha" fx:id="f00" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER">
+            <Circle id="ficha" fx:id="f00" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Circle>
-            <Circle id="ficha" fx:id="f01" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Circle id="ficha" fx:id="f02" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Circle id="ficha" fx:id="f03" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Circle id="ficha" fx:id="f04" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Circle id="ficha" fx:id="f05" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Circle id="ficha" fx:id="f10" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Circle id="ficha" fx:id="f11" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Circle id="ficha" fx:id="f12" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Circle id="ficha" fx:id="f13" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Circle id="ficha" fx:id="f14" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Circle id="ficha" fx:id="f15" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Circle id="ficha" fx:id="f20" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Circle id="ficha" fx:id="f21" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Circle id="ficha" fx:id="f22" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Circle id="ficha" fx:id="f23" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Circle id="ficha" fx:id="f24" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Circle id="ficha" fx:id="f25" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Circle id="ficha" fx:id="f30" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-            <Circle id="ficha" fx:id="f31" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Circle id="ficha" fx:id="f32" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Circle id="ficha" fx:id="f33" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Circle id="ficha" fx:id="f34" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Circle id="ficha" fx:id="f35" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Circle id="ficha" fx:id="f40" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
-            <Circle id="ficha" fx:id="f41" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Circle id="ficha" fx:id="f42" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Circle id="ficha" fx:id="f43" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Circle id="ficha" fx:id="f44" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Circle id="ficha" fx:id="f45" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Circle id="ficha" fx:id="f50" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
-            <Circle id="ficha" fx:id="f51" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Circle id="ficha" fx:id="f52" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Circle id="ficha" fx:id="f53" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Circle id="ficha" fx:id="f54" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Circle id="ficha" fx:id="f55" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Circle id="ficha" fx:id="f60" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
-            <Circle id="ficha" fx:id="f61" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Circle id="ficha" fx:id="f62" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Circle id="ficha" fx:id="f63" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Circle id="ficha" fx:id="f64" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Circle id="ficha" fx:id="f65" fill="WHITE" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Circle id="ficha" fx:id="f01" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Circle id="ficha" fx:id="f02" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Circle id="ficha" fx:id="f03" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Circle id="ficha" fx:id="f04" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Circle id="ficha" fx:id="f05" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Circle id="ficha" fx:id="f10" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Circle id="ficha" fx:id="f11" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Circle id="ficha" fx:id="f12" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Circle id="ficha" fx:id="f13" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Circle id="ficha" fx:id="f14" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Circle id="ficha" fx:id="f15" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Circle id="ficha" fx:id="f20" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Circle id="ficha" fx:id="f21" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Circle id="ficha" fx:id="f22" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Circle id="ficha" fx:id="f23" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Circle id="ficha" fx:id="f24" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Circle id="ficha" fx:id="f25" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Circle id="ficha" fx:id="f30" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+            <Circle id="ficha" fx:id="f31" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Circle id="ficha" fx:id="f32" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Circle id="ficha" fx:id="f33" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Circle id="ficha" fx:id="f34" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Circle id="ficha" fx:id="f35" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Circle id="ficha" fx:id="f40" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
+            <Circle id="ficha" fx:id="f41" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Circle id="ficha" fx:id="f42" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Circle id="ficha" fx:id="f43" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Circle id="ficha" fx:id="f44" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Circle id="ficha" fx:id="f45" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Circle id="ficha" fx:id="f50" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+            <Circle id="ficha" fx:id="f51" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Circle id="ficha" fx:id="f52" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Circle id="ficha" fx:id="f53" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Circle id="ficha" fx:id="f54" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Circle id="ficha" fx:id="f55" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Circle id="ficha" fx:id="f60" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
+            <Circle id="ficha" fx:id="f61" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Circle id="ficha" fx:id="f62" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Circle id="ficha" fx:id="f63" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Circle id="ficha" fx:id="f64" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Circle id="ficha" fx:id="f65" fill="WHITE" onMouseClicked="#action" radius="36.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeType="INSIDE" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
          </children>
       </GridPane>
+      <Label fx:id="turno" layoutX="332.0" layoutY="548.0" prefHeight="17.0" prefWidth="800.0" style="-fx-background-color: #d3d3d3;" text="Turno de:" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <padding>
+            <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+         </padding>
+         <font>
+            <Font size="14.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
       <Label fx:id="temps" alignment="CENTER_RIGHT" layoutX="43.0" layoutY="578.0" style="-fx-background-color: #d3d3d3;" text="Tiempo: 00:00:00" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <padding>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
